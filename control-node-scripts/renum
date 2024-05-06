@@ -1,0 +1,1 @@
+ls [0-9]*|awk -F'-' 'OFS="-"{a=$0; $1="";printf("%s %.02d-%s\n", a, NR, $0); }'|sed "s/--/-/g"|xargs -n2 mv

@@ -1,0 +1,37 @@
+#cloud-config
+users:
+- default
+- name: ${user}
+  shell: /bin/bash
+  sudo: ALL=(ALL) NOPASSWD:ALL
+  ssh_authorized_keys:
+  - ${sshkey}
+  passwd: $6$rounds=4096$pI6JJeo1F2Vsy6Q6$uj0S2F5UxTzd3bv2snPwunD24wuhf31pMHc6CNxz9OsD87GQDUYETL9V3aVE3ZkKhN52sd17.DSQMS.ORpSGo1
+  lock_passwd: false
+- name: root
+  ssh_authorized_keys:
+  - ${sshkey}
+  passwd: $6$rounds=4096$PMF8tvMdiOlIJV7b$sSEzv./AuA7RcNABeTcb6334BSPbioc8IyQcDjwUATcpOaSJOGRbvNr6Fpw1sT/A1AdGqGs.FDKMzYYWgPGKG/
+  lock_passwd: false
+disable_root: false
+ssh:
+  emit_keys_to_console: false
+no_ssh_fingerprints: true
+packages:
+- strace
+- tcpdump
+- bind9-utils
+- tmux
+- git
+- python3-virtualenv
+- jq
+- inotify-tools
+- time
+- pdsh
+- docker.io
+- docker-compose
+runcmd:
+- echo 'setw -g mouse' > /etc/tmux.conf
+- echo "export PDSH_RCMD_TYPE=ssh" >/etc/profile.d/99-pdsh.sh
+- echo "dash dash/sh boolean false" | debconf-set-selections
+- DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash

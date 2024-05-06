@@ -1,0 +1,8 @@
+
+
+      OpenStack WebUI: http://${head}
+        user/password: admin/admin
+TungstenFabric Web UI: https://${head}:8143
+        user/password: admin/admin
+
+   Openrc files are at control0 in /etc/kolla

@@ -1,0 +1,14 @@
+demo = "my-ubuntu-wallaby"
+demospec = ",os=ussuri,virt=kvm,iface=eth0,tfcustom,tf=dev,cacheimages"
+
+login_name = "me"
+public_keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDhnCbtsX8dsmLp5i2G9lDAsKM+05SqIh/kcer0sbv7K me@example.com"
+
+head_count    = 1 # default 1 (tested with 1 and 3)
+compute_count = 3 # default 3 (3 minimum)
+
+catalog_name  = "vanilla"
+template_name = "CentOS 8 Generic Cloud (20210818) unsafe"
+userdata = "../templates/centos8.yaml"
+
+storage_policy = "FAS-Standard"

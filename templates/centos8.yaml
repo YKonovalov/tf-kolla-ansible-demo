@@ -1,0 +1,23 @@
+#cloud-config
+users:
+- name: ${user}
+  shell: /bin/bash
+  sudo: ALL=(ALL) NOPASSWD:ALL
+  ssh_authorized_keys:
+  - ${sshkey}
+packages:
+- epel-release
+- strace
+- tcpdump
+- bind-utils
+- tmux
+- git
+- python3-virtualenv
+- jq
+- inotify-tools
+- time
+runcmd:
+- dnf -y install https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/29/Everything/x86_64/os/Packages/p/pdsh-2.31-12.fc29.x86_64.rpm https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/29/Everything/x86_64/os/Packages/p/pdsh-rcmd-ssh-2.31-12.fc29.x86_64.rpm https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/29/Everything/x86_64/os/Packages/p/pdsh-mod-genders-2.31-12.fc29.x86_64.rpm https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/29/Everything/x86_64/os/Packages/g/genders-1.22-18.fc29.x86_64.rpm https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/29/Everything/x86_64/os/Packages/l/libgenders-1.22-18.fc29.x86_64.rpm https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/29/Everything/x86_64/os/Packages/p/pdsh-mod-nodeupdown-2.31-12.fc29.x86_64.rpm https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/29/Everything/x86_64/os/Packages/l/libnodeupdown-1.14-21.fc27.x86_64.rpm https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/29/Everything/x86_64/os/Packages/l/libnodeupdown-backend-pingd-1.14-21.fc27.x86_64.rpm https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/29/Everything/x86_64/os/Packages/w/whatsup-pingd-1.14-21.fc27.x86_64.rpm https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/29/Everything/x86_64/os/Packages/w/whatsup-1.14-21.fc27.x86_64.rpm
+- openvt -- sh -c 'echo -e "[Service]\nRemainAfterExit=yes\n"|EDITOR=tee systemctl edit whatsup-pingd.service'
+- systemctl enable --now whatsup-pingd
+- echo 'setw -g mouse' > /etc/tmux.conf

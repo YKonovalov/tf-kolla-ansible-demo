@@ -1,0 +1,23 @@
+# This is for custom build tf in different VCD where we have different build-server
+
+demo = "mydemo"
+demospec = ",os=wallaby,virt=kvm,iface=ens192,tfcustom,tf=dev,cacheimages"
+
+login_name = "me"
+public_keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDhnCbtsX8dsmLp5i2G9lDAsKM+05SqIh/kcer0sbv7K me@example.com"
+
+compute_count = 3
+head_count = 1
+
+extra_hosts = [{
+  name  = "build0"
+  ip    = "172.17.0.2"
+  role  = "build"
+  attrs = "pdsh_all_skip,docker_registry_listen_port=5001"
+}]
+
+catalog_name  = "vanilla"
+template_name = "CentOS 8 Generic Cloud (20210818) unsafe"
+userdata = "../templates/centos8.yaml"
+
+storage_policy = "FAS-Standard"
